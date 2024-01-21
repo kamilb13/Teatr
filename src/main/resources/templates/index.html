@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -53,7 +53,7 @@
             color: #333;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 10px;
             margin-bottom: 16px;
@@ -75,12 +75,45 @@
         button:hover {
             background-color: #4ca0af;
         }
+
+         #klienciTable {
+             display: table;
+         }
+
+        #aktorzyTable {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
 
+<h1>Wybierz tabelę do wyświetlenia</h1>
+<form id="tableSelectForm">
+    <label for="tableName">Wybierz tabelę:</label>
+    <select id="tableName" name="tableName">
+        <option value="klienci">Klienci</option>
+        <option value="aktorzy">Aktorzy</option>
+    </select>
+    <button type="button" onclick="showSelectedTable()">Wyświetl tabelę</button>
+</form>
 
-<table>
+<table id="klienciTable">
+    <tr>
+        <th>Id</th>
+        <th>Imie</th>
+        <th>Nazwisko</th>
+        <th>Adres Klienta</th>
+    </tr>
+    <tr th:each="klient : ${klienci}">
+        <td th:text="${klient.id}"></td>
+        <td th:text="${klient.imieKlienta}"></td>
+        <td th:text="${klient.nazwiskoKlienta}"></td>
+        <td th:text="${klient.emailKlienta}"></td>
+    </tr>
+</table>
+
+<table id="aktorzyTable">
     <tr>
         <th>Id</th>
         <th>Imie</th>
@@ -91,10 +124,11 @@
         <td th:text="${aktor.name}"></td>
         <td th:text="${aktor.lastName}"></td>
     </tr>
-
 </table>
-<h1>Dodaj aktora</h1>
-<form th:action="@{/dodaj-aktora}" method="post">
+
+
+
+<form id="dodajAktoraForm" th:action="@{/dodaj-aktora}" method="post" style="display: none;">
     <label for="imie">Imie:</label>
     <input type="text" id="imie" name="imie" required>
 
@@ -104,5 +138,41 @@
     <button type="submit">Dodaj aktora</button>
 </form>
 
+
+<form id="dodajKlientaForm" th:action="@{/dodaj-klienta}" method="post" style="display: block;">
+    <label for="imieKlienta">Imie:</label>
+    <input type="text" id="imieKlienta" name="imieKlienta" required>
+
+    <label for="nazwiskoKlienta">Nazwisko:</label>
+    <input type="text" id="nazwiskoKlienta" name="nazwiskoKlienta" required>
+
+    <label for="emailKlienta">Adres klienta:</label>
+    <input type="text" id="emailKlienta" name="emailKlienta" required>
+
+    <button type="submit">Dodaj klienta</button>
+</form>
+<script>
+
+    //document.getElementById("klienciTable").style.display = "none";
+    console.log(document.getElementById("tableName").value);
+    function showSelectedTable() {
+        var selectedTable = document.getElementById("tableName").value;
+        console.log(selectedTable);
+        if (selectedTable === "klienci") {
+            //console.log("jestem w klientach");
+            document.getElementById("klienciTable").style.display = "table";
+            document.getElementById("aktorzyTable").style.display = "none";
+            document.getElementById("dodajKlientaForm").style.display = "block";
+            document.getElementById("dodajAktoraForm").style.display = "none";
+
+        } else if (selectedTable === "aktorzy") {
+            document.getElementById("klienciTable").style.display = "none";
+            document.getElementById("aktorzyTable").style.display = "table";
+            document.getElementById("dodajKlientaForm").style.display = "none";
+            document.getElementById("dodajAktoraForm").style.display = "block";
+
+        }
+    }
+</script>
 </body>
 </html>

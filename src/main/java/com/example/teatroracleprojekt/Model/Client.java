@@ -20,6 +20,14 @@ public class Client {
     public Client(){
 
     }
+
+    public Client(int id, String imieKlienta, String nazwiskoKlienta, String emailKlienta) {
+        this.id = id;
+        this.imieKlienta = imieKlienta;
+        this.nazwiskoKlienta = nazwiskoKlienta;
+        this.emailKlienta = emailKlienta;
+    }
+
     public Client(String imieKlienta, String nazwiskoKlienta, String emailKlienta) {
         this.imieKlienta = imieKlienta;
         this.nazwiskoKlienta = nazwiskoKlienta;

@@ -151,6 +151,29 @@
 
     <button type="submit">Dodaj klienta</button>
 </form>
+
+<form id="usunKlientaForm" th:action="@{/usun-klienta}" method="post" style="display: block;">
+    <label for="idKlienta">ID do usuniecia:</label>
+    <input type="number" id="idKlienta" name="idKlienta" min="0" required>
+
+    <button type="submit">Usun klienta</button>
+</form>
+
+<form id="edytujKlientaForm" th:action="@{/edytuj-klienta}" method="post" style="display: block;">
+    <label for="idKlienta">ID do edytowania:</label>
+    <input type="number" name="idKlienta" min="0" required>
+
+    <label for="imieKlienta">Imie:</label>
+    <input type="text" name="imieKlienta" required>
+
+    <label for="nazwiskoKlienta">Nazwisko:</label>
+    <input type="text" name="nazwiskoKlienta" required>
+
+    <label for="emailKlienta">Adres klienta:</label>
+    <input type="text" name="emailKlienta" required>
+
+    <button type="submit">Edytuj klienta</button>
+</form>
 <script>
 
     //document.getElementById("klienciTable").style.display = "none";
